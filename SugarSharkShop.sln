@@ -3,9 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SugarShark.Api", "SugarShark.Api\SugarShark.Api.csproj", "{4A9D827C-DB4E-41BD-8046-F445299DF09F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SugarShark.Api", "SugarShark.Api\SugarShark.Api.csproj", "{4A9D827C-DB4E-41BD-8046-F445299DF09F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FB50B5DB-17E3-4437-AAC1-0E9B9C40F593}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build-pipeline.yml = .github\workflows\build-pipeline.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CF3D7406-E87C-4586-96E4-36B0E83C3D2A}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,17 +17,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CF3D7406-E
 		Solution Items\docs\SugarSharkDatabaseDiagram.png = Solution Items\docs\SugarSharkDatabaseDiagram.png
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SugarShark.Application", "SugarShark.Application\SugarShark.Application.csproj", "{B46F0378-1A8D-4673-B17F-05BD19F663BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SugarShark.Application", "SugarShark.Application\SugarShark.Application.csproj", "{B46F0378-1A8D-4673-B17F-05BD19F663BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SugarShark.Domain", "SugarShark.Domain\SugarShark.Domain.csproj", "{1D394A7A-754D-4E59-BB1E-2D857045090A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SugarShark.Domain", "SugarShark.Domain\SugarShark.Domain.csproj", "{1D394A7A-754D-4E59-BB1E-2D857045090A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SugarShark.Infrastructure", "SugarShark.Infrastructure\SugarShark.Infrastructure.csproj", "{A76B69AD-A6C6-4661-8857-7DD84BA1620F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SugarShark.Infrastructure", "SugarShark.Infrastructure\SugarShark.Infrastructure.csproj", "{A76B69AD-A6C6-4661-8857-7DD84BA1620F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3713C86A-31B8-4D42-BF39-6AE0DB962C72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SugarShark.Application.Tests", "SugarShark.Application.Tests\SugarShark.Application.Tests.csproj", "{742C2BD0-9CD4-40BA-B9DC-F1482CC6D38B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SugarShark.Application.Tests", "SugarShark.Application.Tests\SugarShark.Application.Tests.csproj", "{742C2BD0-9CD4-40BA-B9DC-F1482CC6D38B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SugarShark.Infrastructure.Tests", "SugarShark.Infrastructure.Tests\SugarShark.Infrastructure.Tests.csproj", "{06B6652E-E4D5-4862-87FE-E641DB522E40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SugarShark.Infrastructure.Tests", "SugarShark.Infrastructure.Tests\SugarShark.Infrastructure.Tests.csproj", "{06B6652E-E4D5-4862-87FE-E641DB522E40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
