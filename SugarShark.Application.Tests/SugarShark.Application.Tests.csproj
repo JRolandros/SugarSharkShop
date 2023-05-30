@@ -33,6 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SugarShark.Application\SugarShark.Application.csproj" />
     <ProjectReference Include="..\SugarShark.Domain\SugarShark.Domain.csproj" />
+    <ProjectReference Include="..\SugarShark.Infrastructure\SugarShark.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

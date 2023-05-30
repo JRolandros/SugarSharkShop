@@ -20,6 +20,14 @@ namespace SugarShark.Application.CatalogModule.Services
             _mapper = mapper;
         }
 
+        public Task<ProductDto> GetProductById(int id)
+        {
+            var product= _productRepository.GetProductById(id);
+            var dto=product==null?null:_mapper.Map<ProductDto>(product);
+
+            return Task.FromResult(dto);
+        }
+
         public Task<List<ProductDto>> GetProducts()
         {
             var products = _productRepository.GetProducts().ToList();

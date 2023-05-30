@@ -21,9 +21,9 @@ namespace SugarShark.Infrastructure.CatalogModule.Repositories
 
         public Product GetProductById(int id)
         {
-            var product = _dbContext.Products.FirstOrDefault(p => p.Id == id);
+            var product = GetProducts().FirstOrDefault(p => p.Id == id);
 
-            return product ?? throw new InvalidOperationException();
+            return product;
         }
 
         public IEnumerable<Product> GetProducts()
