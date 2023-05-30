@@ -14,31 +14,36 @@ namespace SugarShark.Application.Tests.CatalogModule
 {
     public class MappingProfilesTests
     {
+        private readonly FakeContainerManager _container;
+        private readonly IServiceCollection _services;
+        private readonly IServiceProvider _provider;
+        private readonly IMapper? _mapper;
+
+        public MappingProfilesTests()
+        {
+            _container = new FakeContainerManager();
+            _services = _container.Services;
+
+            _services.AddApplication(); // should add Automapper profiles that have to be tested
+
+            _provider = _container.GetServiceProvider();
+            _mapper = _provider.GetService<IMapper>();
+        }
+
         [Fact]
         [Trait("MappingTests", "")]
         public void ProductProfile_Should_ProductDto_From_Product()
         {
-            //Arrange
-            var container = new FakeContainerManager();
-            var services = container.Services;
-
-            services.AddApplication(); // should add Automapper profiles that have to be tested
-
-            var provider = container.GetServiceProvider();
-
+            //Arrange                     
             Fixture fixture =new Fixture();
             var fakeProduct = fixture.Create<Product>();
 
-            var mapper = provider.GetService<IMapper>();
-
             //Act
-            var dto=mapper.Map<ProductDto>(fakeProduct);
+            var dto=_mapper.Map<ProductDto>(fakeProduct);
 
             //Assert
             Assert.Equal(fakeProduct.Image, dto.Image);
             Assert.Equal(fakeProduct.ProductType.Name, dto.Type);
-
-
         }
 
         

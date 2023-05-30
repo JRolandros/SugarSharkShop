@@ -30,7 +30,7 @@ namespace SugarShark.Application.CatalogModule.Services
         public Task<List<ProductDto>> GetProducts(string type)
         {
             var allProducts= _productRepository.GetProducts();
-            var filteredProducts=allProducts.Where(x=>x.Equals(type)).ToList();
+            var filteredProducts=allProducts.Where(x=>x.ProductType.Name.Equals(type)).ToList();
             var productDtos = _mapper.Map<List<ProductDto>>(filteredProducts);
 
             return Task.FromResult(productDtos);
