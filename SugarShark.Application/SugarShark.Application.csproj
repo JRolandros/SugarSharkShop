@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="CartModule\Commands\" />
     <Folder Include="CartModule\Queries\" />
-    <Folder Include="CatalogModule\Queries\GetProduct\" />
     <Folder Include="OrderModule\Commands\" />
     <Folder Include="OrderModule\Queries\" />
   </ItemGroup>

@@ -12,6 +12,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SugarShark.Application.CatalogModule.Dtos;
+using SugarShark.Application.Common;
+using Microsoft.EntityFrameworkCore;
+using SugarShark.Infrastructure.CatalogModule.Repositories;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SugarShark.Application.Tests.CatalogModule
 {
@@ -36,6 +40,7 @@ namespace SugarShark.Application.Tests.CatalogModule
         }
 
         [Fact]
+        [Trait("CatalogService","Application level")]
         public async void GetProducts_should_return_all_productDto()
         {
             //Arrange
@@ -55,6 +60,7 @@ namespace SugarShark.Application.Tests.CatalogModule
         }
 
         [Fact]
+        [Trait("CatalogService", "Application level")]
         public async void GetProducts_with_Type_argument_should_return_2_productDto_of_Type_Dark()
         {
             //Arrange
@@ -79,7 +85,8 @@ namespace SugarShark.Application.Tests.CatalogModule
         }
 
         [Fact]
-        public async void GetProducts_with_Type_argument_should_return_1_productDto_of_Type_Dark_and_name_of_Juice()
+        [Trait("CatalogService", "Application level")]
+        public async void GetProducts_with_2_arguments_should_return_1_productDto_of_Type_Dark_and_name_of_Juice()
         {
             //Arrange
             var product1 = _fixture.Create<Product>();
@@ -103,5 +110,39 @@ namespace SugarShark.Application.Tests.CatalogModule
             Assert.Equal("Dark", dtos.First().Type);
             Assert.Equal("Juice", dtos.First().Name);
         }
+
+        [Fact]
+        [Trait("CatalogService", "Application level")]
+        public async void when_GetProduct_with_param_1_should_return_one_dto_whose_id_is_1()
+        {
+            //Arrange
+            var product1 = _fixture.Create<Product>();
+            product1.Id= 1;
+            var products = _fixture.CreateMany<Product>(3);
+            var allProducts = new List<Product> { product1 };
+            allProducts.AddRange(products);
+            var data = allProducts.AsQueryable();
+            var dbContext = new Mock<ISugarSharkDbContext>();
+            var setMock=new Mock<DbSet<Product>>();
+            //setMock.Object.AddRange(allProducts);
+
+            setMock.As<IQueryable<Product>>().Setup(m => m.Provider).Returns(data.Provider);
+            setMock.As<IQueryable<Product>>().Setup(m => m.Expression).Returns(data.Expression);
+            setMock.As<IQueryable<Product>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            setMock.As<IQueryable<Product>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+
+            dbContext.Setup(d => d.Products).Returns(setMock.Object);
+            IProductRepository repo = new ProductRepository(dbContext.Object);
+            var catalogService = new CatalogService(repo, _mapper);
+
+            //Act
+            ProductDto dto = await catalogService.GetProductById(1);
+
+            //Assert
+            Assert.Equal(product1.Id, dto.Id);
+            Assert.Equal(product1.Image, dto.Image);
+            Assert.Equal(product1.Name, dto.Name);
+        }
     }
+
 }
