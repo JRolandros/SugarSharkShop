@@ -1,4 +1,6 @@
-﻿using SugarShark.Application.CatalogModule.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using SugarShark.Application.CatalogModule.Repositories;
+using SugarShark.Application.Common;
 using SugarShark.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,14 +12,28 @@ namespace SugarShark.Infrastructure.CatalogModule.Repositories
 {
     public class ProductRepository : IProductRepository
     {
+        private readonly ISugarSharkDbContext _dbContext;
+
+        public ProductRepository(ISugarSharkDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public Product GetProductById(int id)
         {
-            throw new NotImplementedException();
+            var product = _dbContext.Products.FirstOrDefault(p => p.Id == id);
+
+            return product ?? throw new InvalidOperationException();
         }
 
         public IEnumerable<Product> GetProducts()
         {
-            throw new NotImplementedException();
+            var products = _dbContext
+                .Products
+                .Include(p => p.ProductType)
+                .AsEnumerable();
+
+            return products;
         }
     }
 }

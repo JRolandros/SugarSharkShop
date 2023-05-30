@@ -14,5 +14,13 @@ namespace SugarShark.Application.Common
 
         DbSet<ProductType> ProductTypes { get; }
 
+        DbSet<Cart> Carts { get;  }
+
+        DbSet<CartItem> CartItems { get; }
+
+        DbSet<Address> Addresses { get; }
+
+        DbSet<Order> Orders { get; }
+
     }
 }

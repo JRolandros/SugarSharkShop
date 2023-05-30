@@ -29,7 +29,7 @@ namespace SugarShark.Application.CatalogModule.Queries.GetProducts
 
             List<ProductDto> productDtos = null;
 
-            if (string.IsNullOrEmpty(request.Type))
+            if (!string.IsNullOrEmpty(request.Type))
             {
                 if(!string.IsNullOrEmpty(request.Name))
                 {
