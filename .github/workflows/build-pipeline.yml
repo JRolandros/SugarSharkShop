@@ -49,3 +49,6 @@ jobs:
 
     - name: Write to Job Summary
       run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+
+    - name: Write to project readme
+      run: cat code-coverage-results.md|README.md >> README.md
