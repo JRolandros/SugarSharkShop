@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SugarShark.Api", "SugarShark.Api\SugarShark.Api.csproj", "{4A9D827C-DB4E-41BD-8046-F445299DF09F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FB50B5DB-17E3-4437-AAC1-0E9B9C40F593}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\build-pipeline.yml = .github\workflows\build-pipeline.yml
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CF3D7406-E87C-4586-96E4-36B0E83C3D2A}"
 	ProjectSection(SolutionItems) = preProject
