@@ -7,7 +7,7 @@
           <Format>lcov,cobertura</Format>
           <IncludeTestAssembly>false</IncludeTestAssembly>
           <ExcludeByFile>**/Configurations/*.cs,**/Migrations/*.cs,**/SugarShark.Domain/*.cs</ExcludeByFile>
-          <DeterministicReport>true</DeterministicReport>
+          <DeterministicReport>false</DeterministicReport>
         </Configuration>
       </DataCollector>
     </DataCollectors>
