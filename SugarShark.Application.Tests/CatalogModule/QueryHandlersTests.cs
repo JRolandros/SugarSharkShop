@@ -16,11 +16,11 @@ using System.Threading.Tasks;
 
 namespace SugarShark.Application.Tests.CatalogModule
 {
-    public class QueryHandlersTest
+    public class QueryHandlersTests
     {
         private readonly FakeContainerManager _container;
         private readonly IServiceCollection _services;
-        public QueryHandlersTest()
+        public QueryHandlersTests()
         {
             _container = new FakeContainerManager();
             _services = _container.Services;

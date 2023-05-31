@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SugarShark.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace SugarShark.Application.CatalogModule.Repositories
 {
     public interface IOrderRepository
     {
+        int PlaceOrder(Order order);
     }
 }

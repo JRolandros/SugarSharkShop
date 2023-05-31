@@ -2,6 +2,7 @@
 using SugarShark.Application.CatalogModule.Repositories;
 using SugarShark.Application.Common;
 using SugarShark.Domain.Entities;
+using SugarShark.Infrastructure.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace SugarShark.Infrastructure.CatalogModule.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : BaseRepository,IProductRepository
     {
         private readonly ISugarSharkDbContext _dbContext;
 
-        public ProductRepository(ISugarSharkDbContext dbContext)
+        public ProductRepository(ISugarSharkDbContext dbContext):base(dbContext)
         {
             _dbContext = dbContext;
         }

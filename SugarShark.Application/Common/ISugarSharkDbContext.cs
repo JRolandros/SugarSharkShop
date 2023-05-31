@@ -22,5 +22,7 @@ namespace SugarShark.Application.Common
 
         DbSet<Order> Orders { get; }
 
+        int SaveChanges();
+
     }
 }
