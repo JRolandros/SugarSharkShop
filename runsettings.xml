@@ -5,8 +5,9 @@
       <DataCollector friendlyName="XPlat code coverage">
         <Configuration>
           <Format>lcov,cobertura</Format>
-          <IncludeTestAssembly>true</IncludeTestAssembly>
+          <IncludeTestAssembly>false</IncludeTestAssembly>
           <ExcludeByFile>**/Configurations/*.cs,**/Migrations/*.cs,**/SugarShark.Domain/*.cs</ExcludeByFile>
+          <DeterministicReport>false</DeterministicReport>
         </Configuration>
       </DataCollector>
     </DataCollectors>
