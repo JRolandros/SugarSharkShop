@@ -24,7 +24,8 @@ namespace SugarShark.Infrastructure.OrderModule.Repertories
             var cartExit=_dbContext.Carts.Any(x=>x.Id == order.CartId);
 
             if (!cartExit)
-                return -1;
+                throw new InvalidOperationException("Votre panier est vide");
+
             _dbContext.Orders.Add(order);
             return 1;
         }
