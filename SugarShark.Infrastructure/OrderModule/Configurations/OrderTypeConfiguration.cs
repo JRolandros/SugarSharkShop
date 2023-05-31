@@ -14,6 +14,7 @@ namespace SugarShark.Infrastructure.OrderModule.Configurations
         public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasOne(x => x.DeliveryAddress);
         }
     }
 }

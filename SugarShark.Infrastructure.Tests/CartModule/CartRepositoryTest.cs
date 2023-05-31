@@ -85,7 +85,7 @@ namespace SugarShark.Infrastructure.Tests.CartModule
             int actual = _cartRepo.AddCartItem(item);
             _cartRepo.Commit();
 
-            var savedItem=_dbContext.CartItems.SingleOrDefault();
+            var savedItem=_dbContext.CartItems.First(x=>x.CartId==item.CartId && x.ProductId==item.ProductId);
             item.Id = savedItem.Id;
 
             //Assert

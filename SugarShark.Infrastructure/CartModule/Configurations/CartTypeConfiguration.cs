@@ -14,6 +14,7 @@ namespace SugarShark.Infrastructure.CartModule.Configurations
         public void Configure(EntityTypeBuilder<Cart> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasMany(x => x.CartItems);
         }
     }
 }

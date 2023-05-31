@@ -20,7 +20,14 @@ namespace SugarShark.Infrastructure.CartModule.Repertories
 
         public int AddCartItem(CartItem item)
         {
-            throw new NotImplementedException();
+            if (!_dbContext.Carts.Any(x => x.Id == item.CartId))
+                throw new Exception("Violation de la constrainte de clé étranger");
+
+            _dbContext.CartItems.Add(item);
+
+            int ok=Commit();
+
+            return ok;
         }
 
         public int DeleteCartItem(int id)
@@ -50,6 +57,22 @@ namespace SugarShark.Infrastructure.CartModule.Repertories
         public int UpdateCartItemQty(int id, int v)
         {
             throw new NotImplementedException();
+        }
+
+        public int CreateCartIfNotExit(Cart cart)
+        {
+            var exist= _dbContext.Carts.FirstOrDefault(x => x.Id == cart.Id);
+
+            if (exist == null)
+            {
+                var d=_dbContext.Carts.Add(cart);
+
+                exist = cart;
+
+                Commit();
+            }
+
+            return exist.Id;
         }
     }
 }
