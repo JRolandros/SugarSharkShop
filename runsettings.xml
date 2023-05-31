@@ -6,6 +6,7 @@
         <Configuration>
           <Format>lcov,cobertura</Format>
           <IncludeTestAssembly>true</IncludeTestAssembly>
+          <ExcludeFromCoverage>/**/Configurations;/**/Migrations;/**/SugarShark.Domain</ExcludeFromCoverage>
         </Configuration>
       </DataCollector>
     </DataCollectors>
