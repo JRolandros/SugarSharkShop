@@ -43,6 +43,7 @@ namespace SugarShark.Infrastructure.Tests.CartModule
 
             //Assert
             Assert.Equal(cart, actual);
+            actual.CartItems.Should().NotBeEmpty();
         }
 
         [Fact]
