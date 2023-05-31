@@ -64,7 +64,15 @@ namespace SugarShark.Infrastructure.CartModule.Repertories
 
         public int UpdateCartItemQty(int id, int v)
         {
-            throw new NotImplementedException();
+            var toUpdate=_dbContext.CartItems.FirstOrDefault(x=>x.Id.Equals(id));
+
+            if (toUpdate == null)
+                return 0;
+            toUpdate.Qantity = v;
+
+            _dbContext.CartItems.Update(toUpdate);
+
+            return 1;
         }
 
         public int CreateCartIfNotExit(Cart cart)
