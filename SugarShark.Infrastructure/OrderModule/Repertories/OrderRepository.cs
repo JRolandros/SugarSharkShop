@@ -12,7 +12,6 @@ namespace SugarShark.Infrastructure.OrderModule.Repertories
 {
     public class OrderRepository : BaseRepository, IOrderRepository
     {
-        private ISugarSharkDbContext _dbContext;
 
         public OrderRepository(ISugarSharkDbContext dbContext) :base(dbContext)
         {

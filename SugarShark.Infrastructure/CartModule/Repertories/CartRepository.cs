@@ -1,4 +1,5 @@
-﻿using SugarShark.Application.CatalogModule.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using SugarShark.Application.CatalogModule.Repositories;
 using SugarShark.Domain.Entities;
 using SugarShark.Infrastructure.Common;
 using System;
@@ -29,7 +30,12 @@ namespace SugarShark.Infrastructure.CartModule.Repertories
 
         public Cart GetCart(int userId)
         {
-            throw new NotImplementedException();
+            var cart = _dbContext
+                .Carts
+                .Include(c => c.CartItems)
+                .First(c => c.UserId == userId);
+
+            return cart;
         }
 
         public int UpdateCartItemQty(int id, int v)
