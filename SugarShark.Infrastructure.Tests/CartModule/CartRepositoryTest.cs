@@ -48,7 +48,7 @@ namespace SugarShark.Infrastructure.Tests.CartModule
 
         [Fact]
         [Trait("Repositories", "Cart")]
-        public void when_GetCart_with_userId_arg_and_no_cart_exist_should_return_null()
+        public void when_GetCart_with_userId_arg_and_no_cart_exist_should_throws_InvalidOperationException()
         {
 
             //Arrange
@@ -60,10 +60,10 @@ namespace SugarShark.Infrastructure.Tests.CartModule
             _dbContext.SaveChanges();
 
             //Act
-            Cart actual = _cartRepo.GetCart(2);
+            var act =()=> _cartRepo.GetCart(2);
 
             //Assert
-            Assert.Null(actual);
+            act.Should().Throw<InvalidOperationException>().Which.Message.Should().Be("Le panier est vide");
         }
 
         [Fact]
