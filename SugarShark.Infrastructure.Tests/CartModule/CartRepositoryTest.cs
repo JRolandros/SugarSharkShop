@@ -118,7 +118,11 @@ namespace SugarShark.Infrastructure.Tests.CartModule
         public void when_DeleteCartItem_and_cartItem_exist_should_return_1()
         {
             //Arrange
-            var cart = _fixture.Create<Cart>();
+            var item1 = _fixture.Create<CartItem>();
+            item1.Id = 3;
+            var item2 = _fixture.Create<CartItem>();
+            item2.Id = 4;
+            var cart = new Cart() { CartItems = new List<CartItem> { item1, item2 } };
             cart.Id = 1;
             cart.UserId = 1;
             var item = _fixture.Create<CartItem>();
