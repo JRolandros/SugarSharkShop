@@ -11,18 +11,19 @@ namespace SugarShark.Application.CatalogModule.Services
 {
     public class OrderService : IOrderService
     {
-        private IOrderRepository @object;
-        private IMapper? mapper;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IMapper? _mapper;
 
-        public OrderService(IOrderRepository @object, IMapper? mapper)
+        public OrderService(IOrderRepository orderRepository, IMapper? mapper)
         {
-            this.@object = @object;
-            this.mapper = mapper;
+            _orderRepository = orderRepository;
+            this._mapper = mapper;
         }
 
         public int PlaceOrder(Order order)
         {
-            throw new NotImplementedException();
+            int ok=_orderRepository.PlaceOrder(order);
+            return ok;
         }
     }
 }

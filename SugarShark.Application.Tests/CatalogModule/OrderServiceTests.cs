@@ -52,6 +52,7 @@ namespace SugarShark.Application.Tests.CatalogModule
 
             //Assert
             actual.Should().Be(1);
+            repoMock.Verify(x=>x.PlaceOrder(It.IsAny<Order>()),Times.Once);
         }
 
 
