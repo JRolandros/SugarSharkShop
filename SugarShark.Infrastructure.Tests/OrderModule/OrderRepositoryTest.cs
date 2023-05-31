@@ -41,9 +41,13 @@ namespace SugarShark.Infrastructure.Tests.OrderModule
 
             //Act
             int actual=repo.PlaceOrder(order);
+            repo.Commit();
+            var added = _dbContext.Orders.First(x => x.UserId == order.UserId && x.CartId == order.CartId);
 
+            order.Id = added.Id;
             //Assert
             Assert.Equal(1, actual);
+            added.Should().Be(order);
         }
 
         [Fact]

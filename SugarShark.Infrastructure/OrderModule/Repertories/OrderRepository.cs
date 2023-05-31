@@ -1,5 +1,7 @@
 ﻿using SugarShark.Application.CatalogModule.Repositories;
+using SugarShark.Application.Common;
 using SugarShark.Domain.Entities;
+using SugarShark.Infrastructure.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +10,23 @@ using System.Threading.Tasks;
 
 namespace SugarShark.Infrastructure.OrderModule.Repertories
 {
-    public class OrderRepository : IOrderRepository
+    public class OrderRepository : BaseRepository, IOrderRepository
     {
-        private SugarSharkDbContext dbContext;
+        private ISugarSharkDbContext _dbContext;
 
-        public OrderRepository(SugarSharkDbContext dbContext)
+        public OrderRepository(ISugarSharkDbContext dbContext) :base(dbContext)
         {
-            this.dbContext = dbContext;
+            this._dbContext = dbContext;
         }
 
         public int PlaceOrder(Order order)
         {
-            throw new NotImplementedException();
+            var cartExit=_dbContext.Carts.Any(x=>x.Id == order.CartId);
+
+            if (!cartExit)
+                return -1;
+            _dbContext.Orders.Add(order);
+            return 1;
         }
     }
 }
