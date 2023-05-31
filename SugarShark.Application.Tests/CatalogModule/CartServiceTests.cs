@@ -51,6 +51,7 @@ namespace SugarShark.Application.Tests.CatalogModule
             //Assert
             actual.CartItems.Should().NotBeNull().And.NotBeEmpty();
             actual.Should().Be(expected);
+            repoMock.Verify(x => x.GetCart(It.IsAny<int>()), Times.Once);
         }
 
     }

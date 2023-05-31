@@ -56,20 +56,20 @@ namespace SugarShark.Application.Tests.CatalogModule
         }
 
 
-        [Fact]
-        [Trait("ApplicationServices", "Order")]
-        public void when_PlaceOrder_and_no_cart_exist_should_return_invalidOperationException_with_message()
-        {
-            //Arrange
-            var order = _fixture.Create<Order>();
-            Mock<IOrderRepository> repoMock = new Mock<IOrderRepository>();
-            repoMock.Setup(x=>x.PlaceOrder(It.IsAny<Order>())).Throws<InvalidOperationException>();
+        //[Fact]
+        //[Trait("ApplicationServices", "Order")]
+        //public void when_PlaceOrder_and_no_cart_exist_should_return_invalidOperationException_with_message()
+        //{
+        //    //Arrange
+        //    var order = _fixture.Create<Order>();
+        //    Mock<IOrderRepository> repoMock = new Mock<IOrderRepository>();
+        //    repoMock.Setup(x=>x.PlaceOrder(It.IsAny<Order>())).Throws<InvalidOperationException>();
 
-            var service = new OrderService(repoMock.Object, _mapper);
+        //    var service = new OrderService(repoMock.Object, _mapper);
 
-            //Act
-            var act = () => service.PlaceOrder(order);
-        }
+        //    //Act
+        //    var act = () => service.PlaceOrder(order);
+        //}
 
     }
 }

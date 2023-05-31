@@ -11,18 +11,20 @@ namespace SugarShark.Application.CatalogModule.Services
 {
     public class CartService : ICartService
     {
-        private ICartRepository @object;
-        private IMapper? mapper;
+        private readonly ICartRepository _cartRepository;
+        private readonly IMapper? _mapper;
 
-        public CartService(ICartRepository @object, IMapper? mapper)
+        public CartService(ICartRepository cartRepository, IMapper? mapper)
         {
-            this.@object = @object;
-            this.mapper = mapper;
+            _cartRepository = cartRepository;
+            _mapper = mapper;
         }
 
         public Cart GetCart(int userId)
         {
-            throw new NotImplementedException();
+            var cart=_cartRepository.GetCart(userId);
+
+            return cart;
         }
     }
 }
