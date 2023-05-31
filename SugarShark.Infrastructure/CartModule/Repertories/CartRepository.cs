@@ -30,12 +30,21 @@ namespace SugarShark.Infrastructure.CartModule.Repertories
 
         public Cart GetCart(int userId)
         {
-            var cart = _dbContext
-                .Carts
-                .Include(c => c.CartItems)
-                .First(c => c.UserId == userId);
+            try
+            {
+                var cart = _dbContext
+                        .Carts
+                        .Include(c => c.CartItems)
+                        .First(c => c.UserId == userId);
 
-            return cart;
+                return cart;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Le panier est vide",ex);
+            }
+
+            
         }
 
         public int UpdateCartItemQty(int id, int v)
