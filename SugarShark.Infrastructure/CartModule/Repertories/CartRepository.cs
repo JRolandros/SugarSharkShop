@@ -32,7 +32,15 @@ namespace SugarShark.Infrastructure.CartModule.Repertories
 
         public int DeleteCartItem(int id)
         {
-            throw new NotImplementedException();
+            var itemToDelete=_dbContext.CartItems.FirstOrDefault(x=> x.Id == id);
+            if (itemToDelete == null)
+                throw new InvalidOperationException("Ce produit n'existe pas");
+
+            _dbContext.CartItems.Remove(itemToDelete);
+
+            int ok=Commit();
+
+            return ok;
         }
 
         public Cart GetCart(int userId)
