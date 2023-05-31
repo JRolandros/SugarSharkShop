@@ -7,7 +7,7 @@
           <Format>lcov,cobertura</Format>
           <IncludeTestAssembly>false</IncludeTestAssembly>
           <ExcludeByFile>**/Configurations/*.cs,**/Migrations/*.cs,**/SugarShark.Domain/*.cs</ExcludeByFile>
-          <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+          <DeterministicSourcePaths>true</DeterministicSourcePaths>
         </Configuration>
       </DataCollector>
     </DataCollectors>
