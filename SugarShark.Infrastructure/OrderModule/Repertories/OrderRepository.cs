@@ -1,5 +1,5 @@
-﻿using SugarShark.Application.CatalogModule.Repositories;
-using SugarShark.Application.Common;
+﻿using SugarShark.Application.Common;
+using SugarShark.Application.OrderModule.Repositories;
 using SugarShark.Domain.Entities;
 using SugarShark.Infrastructure.Common;
 using System;

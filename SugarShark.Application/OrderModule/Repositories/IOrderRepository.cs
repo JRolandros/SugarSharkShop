@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SugarShark.Application.CatalogModule.Repositories
+namespace SugarShark.Application.OrderModule.Repositories
 {
     public interface IOrderRepository
     {

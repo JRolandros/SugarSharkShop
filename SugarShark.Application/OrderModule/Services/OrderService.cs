@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using SugarShark.Application.CatalogModule.Repositories;
+using SugarShark.Application.OrderModule.Repositories;
 using SugarShark.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SugarShark.Application.CatalogModule.Services
+namespace SugarShark.Application.OrderModule.Services
 {
     public class OrderService : IOrderService
     {
@@ -17,12 +17,12 @@ namespace SugarShark.Application.CatalogModule.Services
         public OrderService(IOrderRepository orderRepository, IMapper? mapper)
         {
             _orderRepository = orderRepository;
-            this._mapper = mapper;
+            _mapper = mapper;
         }
 
         public int PlaceOrder(Order order)
         {
-            int ok=_orderRepository.PlaceOrder(order);
+            int ok = _orderRepository.PlaceOrder(order);
             return ok;
         }
     }

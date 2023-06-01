@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SugarShark.Application.CatalogModule.Repositories
+namespace SugarShark.Domain.Common
 {
-    public interface ICartRepository
+    public class CartItemProxy
     {
-        Cart GetCart(int userId);
+        public CartItem CartItem { get; set; }
+        public Product Product { get; set; }
     }
 }

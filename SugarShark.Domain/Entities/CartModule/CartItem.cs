@@ -5,6 +5,6 @@ namespace SugarShark.Domain.Entities
     {
         public int ProductId { get; set; }
         public int CartId { get; set; }
-        public int Qantity { get; set; }
+        public int Quantity { get; set; }
     }
 }

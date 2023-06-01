@@ -41,7 +41,7 @@ namespace SugarShark.Infrastructure.Tests.CatalogModule
         {
             //Arrange
             var allProducts = _fixture.CreateMany<Product>(3).ToList();
-            var expectedProduct = new Product { Id = 1, Name = "Test", Image="",Price=20,ProductType=null };
+            var expectedProduct = new Product { Id = 1, Name = "Test", Image="",Price=20,ProductType=new ProductType { Id=1,Name="AMBER"} };
             allProducts.Add(expectedProduct);
             _dbContext.Products.AddRange(allProducts);
             _dbContext.SaveChanges();

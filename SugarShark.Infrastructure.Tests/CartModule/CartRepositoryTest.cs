@@ -180,20 +180,20 @@ namespace SugarShark.Infrastructure.Tests.CartModule
             cart.UserId = 1;
             var item = _fixture.Create<CartItem>();
             item.CartId = cart.Id;
-            item.Qantity = 10;
+            item.Quantity = 10;
 
             _dbContext.Carts.Add(cart);
             _dbContext.CartItems.Add(item);
             _dbContext.SaveChanges();
 
             //Act
-            int actual = _cartRepo.UpdateCartItemQty(item.Id,item.Qantity+5);
+            int actual = _cartRepo.UpdateCartItemQty(item.Id,item.Quantity+5);
             _cartRepo.Commit();
 
             var updated = _dbContext.CartItems.First(x => x.Id == item.Id);
             //Assert
             actual.Should().Be(1);
-            updated.Qantity.Should().Be(15);
+            updated.Quantity.Should().Be(15);
         }
     }
 }
