@@ -9,5 +9,7 @@ namespace SugarShark.Application.CartModule.Commands
 {
     public class DeleteCartItemCommand :IRequest<int>
     {
+        public int ProductId { get; set; }
+        public int UserId { get; set; }
     }
 }

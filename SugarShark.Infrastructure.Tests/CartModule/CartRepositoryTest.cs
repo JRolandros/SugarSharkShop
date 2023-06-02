@@ -48,7 +48,7 @@ namespace SugarShark.Infrastructure.Tests.CartModule
 
         [Fact]
         [Trait("Repositories", "Cart")]
-        public void when_GetCart_with_userId_arg_and_no_cart_exist_should_throws_InvalidOperationException()
+        public void when_GetCart_with_userId_arg_and_no_cart_exist_should_create_cart_with_no_item()
         {
 
             //Arrange
@@ -59,11 +59,17 @@ namespace SugarShark.Infrastructure.Tests.CartModule
             _dbContext.Carts.Add(cart);
             _dbContext.SaveChanges();
 
+            //Verify
+            var anyCart=_dbContext.Carts.Any(x => x.Id == 2);
+
+            Assert.False(anyCart);
+
             //Act
-            var act =()=> _cartRepo.GetCart(2);
+            var act =_cartRepo.GetCart(2,true);
 
             //Assert
-            act.Should().Throw<InvalidOperationException>().Which.Message.Should().Be("Le panier est vide");
+            act.Should().NotBeNull();
+            act.CartItems.Should().BeEmpty();
         }
 
         [Fact]
@@ -119,21 +125,24 @@ namespace SugarShark.Infrastructure.Tests.CartModule
         {
             //Arrange
             var item1 = _fixture.Create<CartItem>();
+            item1.ProductId = 3;
             item1.Id = 3;
             var item2 = _fixture.Create<CartItem>();
             item2.Id = 4;
+            item2.ProductId = 4;
             var cart = new Cart() { CartItems = new List<CartItem> { item1, item2 } };
             cart.Id = 1;
             cart.UserId = 1;
             var item = _fixture.Create<CartItem>();
             item.CartId = cart.Id;
+            item.ProductId = 2;
 
             _dbContext.Carts.Add(cart);
             _dbContext.CartItems.Add(item);
             _dbContext.SaveChanges();
             
             //Act
-            int actual=_cartRepo.DeleteCartItem(item.Id);
+            int actual=_cartRepo.DeleteCartItem(item.ProductId,cart.UserId);
             _cartRepo.Commit();
 
             var check = _dbContext.CartItems.FirstOrDefault(x => x.Id == item.Id);
@@ -164,7 +173,7 @@ namespace SugarShark.Infrastructure.Tests.CartModule
             _dbContext.SaveChanges();
 
             //Act
-            var act =()=> _cartRepo.DeleteCartItem(2);
+            var act =()=> _cartRepo.DeleteCartItem(2,1);
 
             //Assert
             act.Should().Throw<InvalidOperationException>().Which.Message.Should().Be("Ce produit n'existe pas");
@@ -187,7 +196,7 @@ namespace SugarShark.Infrastructure.Tests.CartModule
             _dbContext.SaveChanges();
 
             //Act
-            int actual = _cartRepo.UpdateCartItemQty(item.Id,item.Quantity+5);
+            int actual = _cartRepo.UpdateCartItemQty(item.ProductId, cart.Id,item.Quantity+5);
             _cartRepo.Commit();
 
             var updated = _dbContext.CartItems.First(x => x.Id == item.Id);

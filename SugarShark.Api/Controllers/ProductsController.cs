@@ -6,7 +6,7 @@ using SugarShark.Application.CatalogModule.Queries.GetProducts;
 
 namespace SugarShark.Api.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/products")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -25,7 +25,7 @@ namespace SugarShark.Api.Controllers
         {
             var resp = await _mediator.Send(new GetCatalogQuery());
 
-            return Ok(resp.Products);
+            return Ok(resp.CatalogItems);
         }
 
         [HttpGet("{id}")]

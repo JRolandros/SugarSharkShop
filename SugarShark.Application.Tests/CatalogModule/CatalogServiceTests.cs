@@ -50,11 +50,11 @@ namespace SugarShark.Application.Tests.CatalogModule
             var catalogService = new CatalogService(repoMock.Object, _mapper);
 
             //Act
-            var dtos = await catalogService.GetProducts();
+            var dtos = await catalogService.GetCatalogItems();
 
             //Assert
             dtos.Should().NotBeNull().And.NotBeEmpty();
-            Assert.IsType<ProductDto>(dtos.First());
+            Assert.IsType<CatalogItemDto>(dtos.First());
             Assert.Equal(products.Count(), dtos.Count());
 
         }
@@ -75,11 +75,11 @@ namespace SugarShark.Application.Tests.CatalogModule
             var catalogService = new CatalogService(repoMock.Object, _mapper);
 
             //Act
-            var dtos = await catalogService.GetProducts("Dark");
+            var dtos = await catalogService.GetCatalogItems("Dark");
 
             //Assert
             dtos.Should().NotBeNull().And.NotBeEmpty();
-            Assert.IsType<ProductDto>(dtos.First());
+            Assert.IsType<CatalogItemDto>(dtos.First());
             Assert.Equal(2, dtos.Count());
             Assert.True(dtos.Any(x => x.Type == "Dark"));
         }
@@ -101,11 +101,11 @@ namespace SugarShark.Application.Tests.CatalogModule
             var catalogService = new CatalogService(repoMock.Object, _mapper);
 
             //Act
-            var dtos = await catalogService.GetProducts("Dark", "Juice");
+            var dtos = await catalogService.GetCatalogItems("Dark", "Juice");
 
             //Assert
             dtos.Should().NotBeNull().And.NotBeEmpty();
-            Assert.IsType<ProductDto>(dtos.First());
+            Assert.IsType<CatalogItemDto>(dtos.First());
             Assert.Equal(1, dtos.Count());
             Assert.Equal("Dark", dtos.First().Type);
             Assert.Equal("Juice", dtos.First().Name);

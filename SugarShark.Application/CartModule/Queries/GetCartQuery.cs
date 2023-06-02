@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using SugarShark.Domain.Entities;
+using SugarShark.Application.CartModule.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace SugarShark.Application.CartModule.Queries
 {
-    public class GetCartQuery :IRequest<Cart>
+    public class GetCartQuery :IRequest<CartDto>
     {
+        public int UserId { get; set; }
     }
 }

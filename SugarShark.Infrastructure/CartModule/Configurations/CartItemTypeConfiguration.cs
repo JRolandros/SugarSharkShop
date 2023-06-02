@@ -14,6 +14,7 @@ namespace SugarShark.Infrastructure.CartModule.Configurations
         public void Configure(EntityTypeBuilder<CartItem> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x=>new {x.ProductId,x.CartId}).IsUnique();
         }
     }
 }

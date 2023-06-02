@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace SugarShark.Application.CatalogModule.Dtos
 {
-    public class ProductDto : BaseProductDto
+    public abstract class BaseProductDto : BaseDto
     {
-        public string Description { get; set; }
-        public int Stock { get; set; }
-
+        public string Image { get; set; }
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public string Type { get; set; }
     }
 }

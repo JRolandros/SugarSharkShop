@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SugarShark.Infrastructure;
 
@@ -11,9 +12,11 @@ using SugarShark.Infrastructure;
 namespace SugarShark.Infrastructure.Migrations
 {
     [DbContext(typeof(SugarSharkDbContext))]
-    partial class SugarSharkDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230601102142_UpdatedCartItemField")]
+    partial class UpdatedCartItemField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,9 +66,6 @@ namespace SugarShark.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
                     b.ToTable("Carts");
                 });
 
@@ -90,9 +90,6 @@ namespace SugarShark.Infrastructure.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.HasIndex("ProductId", "CartId")
-                        .IsUnique();
-
                     b.ToTable("CartItems");
                 });
 
@@ -103,6 +100,9 @@ namespace SugarShark.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
 
                     b.Property<int>("DeliveryAddressId")
                         .HasColumnType("int");
@@ -131,10 +131,6 @@ namespace SugarShark.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -147,9 +143,6 @@ namespace SugarShark.Infrastructure.Migrations
                         .HasColumnType("float");
 
                     b.Property<int>("ProductTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Stock")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

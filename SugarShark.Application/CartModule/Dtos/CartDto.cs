@@ -11,6 +11,6 @@ namespace SugarShark.Application.CartModule.Dtos
         public DateTime ValidityEndDate { get; set; }
         public int UserId { get; set; }
 
-        public List<CartItemDto> CartItems { get; set; }
+        public List<CartItemDto> CartItemDtos { get; set; }
     }
 }

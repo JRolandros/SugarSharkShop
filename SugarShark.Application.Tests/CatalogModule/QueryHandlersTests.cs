@@ -31,7 +31,7 @@ namespace SugarShark.Application.Tests.CatalogModule
         }
 
         [Fact]
-        [Trait("GetCatalog", "Application level")]
+        [Trait("QueryHandlers", "Catalog")]
         public async void when_GetCatalogQuery_is_Send_with_no_param_GetProducts_with_no_param_is_hit()
         {
             //Arrange
@@ -46,14 +46,14 @@ namespace SugarShark.Application.Tests.CatalogModule
             await mediator.Send(new GetCatalogQuery());
 
             //Assert
-            catalogServiceMock.Verify(x => x.GetProducts(), Times.Once);
-            catalogServiceMock.Verify(x => x.GetProducts(It.IsAny<string>()), Times.Never);
-            catalogServiceMock.Verify(x => x.GetProducts(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            catalogServiceMock.Verify(x => x.GetCatalogItems(), Times.Once);
+            catalogServiceMock.Verify(x => x.GetCatalogItems(It.IsAny<string>()), Times.Never);
+            catalogServiceMock.Verify(x => x.GetCatalogItems(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
 
         }
 
         [Fact]
-        [Trait("GetCatalog","Application level")]
+        [Trait("QueryHandlers","Catalog")]
         public async void when_GetCatalogQuery_is_Send_with_type_param_GetProducts_with_one_param_is_hit()
         {
             //Arrange
@@ -68,14 +68,14 @@ namespace SugarShark.Application.Tests.CatalogModule
             await mediator.Send(new GetCatalogQuery() { Type = "Dark" });
 
             //Assert
-            catalogServiceMock.Verify(x=>x.GetProducts(It.IsAny<string>()),Times.Once);
-            catalogServiceMock.Verify(x => x.GetProducts(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-            catalogServiceMock.Verify(x => x.GetProducts(), Times.Never);
+            catalogServiceMock.Verify(x=>x.GetCatalogItems(It.IsAny<string>()),Times.Once);
+            catalogServiceMock.Verify(x => x.GetCatalogItems(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            catalogServiceMock.Verify(x => x.GetCatalogItems(), Times.Never);
 
         }
 
         [Fact]
-        [Trait("GetCatalog", "Application level")]
+        [Trait("QueryHandlers", "Catalog")]
         public async void when_GetCatalogQuery_is_Send_with_2_param_GetProducts_with_2_param_is_hit()
         {
             //Arrange
@@ -90,14 +90,14 @@ namespace SugarShark.Application.Tests.CatalogModule
             await mediator.Send(new GetCatalogQuery() { Type = "Dark",Name="test" });
 
             //Assert
-            catalogServiceMock.Verify(x => x.GetProducts(It.IsAny<string>(),It.IsAny<string>()), Times.Once);
-            catalogServiceMock.Verify(x => x.GetProducts(It.IsAny<string>()), Times.Never);
-            catalogServiceMock.Verify(x => x.GetProducts(), Times.Never);
+            catalogServiceMock.Verify(x => x.GetCatalogItems(It.IsAny<string>(),It.IsAny<string>()), Times.Once);
+            catalogServiceMock.Verify(x => x.GetCatalogItems(It.IsAny<string>()), Times.Never);
+            catalogServiceMock.Verify(x => x.GetCatalogItems(), Times.Never);
 
         }
 
         [Fact]
-        [Trait("GetProduct", "Application level")]
+        [Trait("QueryHandlers", "Catalog")]
         public async void when_GetProductQuery_is_Send_GetProductById_is_hit()
         {
             //Arrange

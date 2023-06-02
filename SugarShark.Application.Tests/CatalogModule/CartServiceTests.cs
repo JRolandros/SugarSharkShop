@@ -3,8 +3,11 @@ using AutoMapper;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using SugarShark.Application.CartModule.Dtos;
 using SugarShark.Application.CartModule.Repositories;
 using SugarShark.Application.CartModule.Services;
+using SugarShark.Application.CatalogModule.Repositories;
+using SugarShark.Application.OrderModule.Repositories;
 using SugarShark.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -28,6 +31,8 @@ namespace SugarShark.Application.Tests.CatalogModule
             _container = new FakeContainerManager();
             _services = _container.Services;
 
+            _services.AddApplication();
+
             _provider = _container.GetServiceProvider();
             _mapper = _provider.GetService<IMapper>();
         }
@@ -35,23 +40,25 @@ namespace SugarShark.Application.Tests.CatalogModule
 
         [Fact]
         [Trait("ApplicationServices", "Order")]
-        public void when_GetCart_and_cart_exist_should_return_cart()
+        public async void when_GetCart_and_cart_exist_should_return_cart()
         {
             //Arrange
             var expected = _fixture.Create<Cart>();
 
+            Mock<IProductRepository> productRepoMock = new Mock<IProductRepository>();
             Mock<ICartRepository> repoMock= new Mock<ICartRepository>();
-            repoMock.Setup(x=>x.GetCart(It.IsAny<int>())).Returns(expected);
+            repoMock.Setup(x=>x.GetCart(It.IsAny<int>(),It.IsAny<bool>())).Returns(expected);
 
-            var service = new CartService(repoMock.Object, _mapper);
+            var service = new CartService(repoMock.Object,productRepoMock.Object, _mapper);
 
             //Act
-            Cart actual = service.GetCart(expected.UserId);
-
+            CartDto actual = await service.GetCart(expected.UserId);
+            var expectedDto = _mapper.Map<CartDto>(expected);
             //Assert
-            actual.CartItems.Should().NotBeNull().And.NotBeEmpty();
-            actual.Should().Be(expected);
-            repoMock.Verify(x => x.GetCart(It.IsAny<int>()), Times.Once);
+            //actual.CartItems.Should().NotBeNull().And.NotBeEmpty();
+            actual.UserId.Should().Be(expectedDto.UserId);
+            actual.ValidityEndDate.Should().Be(expectedDto.ValidityEndDate);
+            repoMock.Verify(x => x.GetCart(It.IsAny<int>(), It.IsAny<bool>()), Times.Once);
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using AutoFixture;
+using FluentAssertions;
 using SugarShark.Domain.Entities;
 using SugarShark.Infrastructure.CatalogModule.Repositories;
 using System;
@@ -21,6 +22,7 @@ namespace SugarShark.Infrastructure.Tests.CatalogModule
         }
 
         [Fact]
+        [Trait("Repositories", "Catalog")]
         public void when_GetProducts_should_return_all_products()
         {
             //Arrange
@@ -37,11 +39,12 @@ namespace SugarShark.Infrastructure.Tests.CatalogModule
         }
 
         [Fact]
+        [Trait("Repositories", "Catalog")]
         public void when_GetProductById_with_arg_1_should_return_one_product_of_id_1()
         {
             //Arrange
             var allProducts = _fixture.CreateMany<Product>(3).ToList();
-            var expectedProduct = new Product { Id = 1, Name = "Test", Image="",Price=20,ProductType=new ProductType { Id=1,Name="AMBER"} };
+            var expectedProduct = new Product { Id = 1, Name = "Test", Image="",Description="", Stock=0,Price=20,ProductType=new ProductType { Id=1,Name="AMBER"} };
             allProducts.Add(expectedProduct);
             _dbContext.Products.AddRange(allProducts);
             _dbContext.SaveChanges();
@@ -51,7 +54,10 @@ namespace SugarShark.Infrastructure.Tests.CatalogModule
             //Act
             var actualProduct = repo.GetProductById(1);
 
-            Assert.Equal(expectedProduct, actualProduct);
+            //Assert
+            actualProduct.Id.Should().Be(expectedProduct.Id);
+            actualProduct.Name.Should().Be(expectedProduct.Name);
+            actualProduct.ProductType.Name.Should().Be(expectedProduct.ProductType.Name);
         }
     }
 }

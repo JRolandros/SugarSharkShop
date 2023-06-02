@@ -20,13 +20,10 @@ namespace SugarShark.Infrastructure.OrderModule.Repertories
 
         public int PlaceOrder(Order order)
         {
-            var cartExit=_dbContext.Carts.Any(x=>x.Id == order.CartId);
-
-            if (!cartExit)
-                throw new InvalidOperationException("Votre panier est vide");
 
             _dbContext.Orders.Add(order);
-            return 1;
+
+            return Commit();
         }
     }
 }

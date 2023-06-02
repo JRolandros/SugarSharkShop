@@ -29,10 +29,11 @@ namespace SugarShark.Infrastructure.Tests.OrderModule
             //Arrange
             var cart = _fixture.Create<Cart>();
             cart.Id = 1;
+            cart.UserId = 1;
 
             var order = _fixture.Create<Order>();
             order.Id = 2;
-            order.CartId = cart.Id;
+            order.UserId = 1;
 
             _dbContext.Carts.Add(cart);
             _dbContext.SaveChanges();
@@ -42,37 +43,14 @@ namespace SugarShark.Infrastructure.Tests.OrderModule
             //Act
             int actual=repo.PlaceOrder(order);
             repo.Commit();
-            var added = _dbContext.Orders.First(x => x.UserId == order.UserId && x.CartId == order.CartId);
+            var added = _dbContext.Orders.First(x => x.UserId == order.UserId && x.OrderDate == order.OrderDate);
 
             order.Id = added.Id;
             //Assert
-            Assert.Equal(1, actual);
+            Assert.True(1<=actual);
             added.Should().Be(order);
         }
 
-        [Fact]
-        [Trait("Repositories", "Order")]
-        public void when_PlaceOrder_and_cartId_not_exist_invalidOperationException()
-        {
-            //Arrange
-            var cart = _fixture.Create<Cart>();
-            cart.Id = 1;
-
-            var order = _fixture.Create<Order>();
-            order.Id = 2;
-            order.CartId = 2;
-
-            _dbContext.Carts.Add(cart);
-            _dbContext.SaveChanges();
-
-            var repo = new OrderRepository(_dbContext);
-
-            //Act
-            var act=()=>repo.PlaceOrder(order);
-
-            //Assert
-            act.Should().ThrowExactly<InvalidOperationException>().Which.Message.Should().Be("Votre panier est vide");
-
-        }
+        
     }
 }

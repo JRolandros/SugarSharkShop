@@ -27,26 +27,26 @@ namespace SugarShark.Application.CatalogModule.Queries.GetProducts
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
-            List<ProductDto> productDtos = null;
+            List<CatalogItemDto> productDtos = null;
 
             if (!string.IsNullOrEmpty(request.Type))
             {
                 if(!string.IsNullOrEmpty(request.Name))
                 {
-                    productDtos=await _catalogService.GetProducts(request.Type,request.Name);
+                    productDtos=await _catalogService.GetCatalogItems(request.Type,request.Name);
                 }
                 else
                 {
-                    productDtos = await _catalogService.GetProducts(request.Type);
+                    productDtos = await _catalogService.GetCatalogItems(request.Type);
                 }
             }
             else
             {
-                productDtos = await _catalogService.GetProducts();
+                productDtos = await _catalogService.GetCatalogItems();
             }
 
 
-            return new Catalog() { Products = productDtos };
+            return new Catalog() { CatalogItems = productDtos };
 
         }
     }
