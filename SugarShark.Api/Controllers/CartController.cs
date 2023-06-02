@@ -24,13 +24,23 @@ namespace SugarShark.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            _logger.LogInformation("Debut GetCart endpoint");
+            try
+            {
+                _logger.LogInformation("Debut GetCart endpoint");
 
-            var cart=await _mediator.Send(new GetCartQuery() { UserId=1});
+                var cart = await _mediator.Send(new GetCartQuery() { UserId = 1 });
 
-            _logger.LogInformation("Fin GetCart endpoint");
+                _logger.LogInformation("Fin GetCart endpoint");
 
-            return Ok(cart.CartItemDtos);
+                return Ok(cart.CartItemDtos);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            
         }
       
 

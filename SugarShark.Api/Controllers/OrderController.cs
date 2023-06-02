@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SugarShark.Api.Models;
 using SugarShark.Application.OrderModule.Commands;
 
 namespace SugarShark.Api.Controllers
@@ -22,10 +23,23 @@ namespace SugarShark.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> PlaceOrder([FromBody] PlaceOrderCommand command)
         {
-            _logger.LogInformation("Debut PlaceOrder endpoint");
-            int ok=await _mediator.Send(command);
+            OrderResponse response = new OrderResponse();
 
-            return Ok(ok);
+            try
+            {
+                _logger.LogInformation("Debut PlaceOrder endpoint");
+                int ok = await _mediator.Send(command);
+                response.IsOrderValid = ok == 1 ? true : false;
+            }
+            catch (Exception ex)
+            {
+                response.IsOrderValid = false;
+                response.addErrorMessage(ex.Message);
+                throw;
+            }
+
+            
+            return Ok(response);
         }
     }
 }

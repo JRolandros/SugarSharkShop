@@ -16,5 +16,6 @@ namespace SugarShark.Infrastructure.OrderModule.Configurations
             builder.HasKey(x => x.Id);
             builder.HasOne(x => x.DeliveryAddress);
         }
+        
     }
 }

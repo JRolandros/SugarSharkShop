@@ -16,6 +16,28 @@ namespace SugarShark.Infrastructure.CartModule.Configurations
             builder.HasKey(x => x.Id);
             builder.HasMany(x => x.CartItems);
             builder.HasIndex(x => x.UserId).IsUnique();
+
+            //Seed
+            SeedData(builder);
+        }
+
+        private void SeedData(EntityTypeBuilder<Cart> builder)
+        {
+            builder.HasData(
+                new Cart()
+                {
+                    Id = 2,
+                    UserId = 2,
+                    ValidityEndDate = DateTime.Now.AddDays(2),
+                },
+                new Cart()
+                {
+                    Id = 4,
+                    UserId = 1,
+                    ValidityEndDate = DateTime.Now.AddDays(2),
+                }
+
+                );
         }
     }
 }

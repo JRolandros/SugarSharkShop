@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SugarShark.Application.CartModule.Repositories;
@@ -27,5 +28,6 @@ namespace SugarShark.Infrastructure
 
             return services;
         }
+
     }
 }

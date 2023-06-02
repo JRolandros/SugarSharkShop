@@ -1,8 +1,11 @@
+using Serilog;
 using SugarShark.Application;
 using SugarShark.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 // Add services to the container.
 builder.Services.AddCors();
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -22,7 +25,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseCors();
+app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
