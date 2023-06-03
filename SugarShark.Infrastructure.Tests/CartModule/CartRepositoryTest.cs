@@ -24,48 +24,46 @@ namespace SugarShark.Infrastructure.Tests.CartModule
             _fixture = new Fixture();
         }
 
-        [Fact]
+        [Theory]
         [Trait("Repositories", "Cart")]
-        public void when_GetCart_with_userId_arg_and_cart_exist_should_return_user_cart()
+        [InlineData(1)]
+        public void when_GetCart_with_userId_arg_and_cart_exist_should_return_user_cart(int userId)
         {
             //Arrange
-            var cart = _fixture.Create<Cart>();
-            cart.Id = 1;
-            cart.UserId=1;
-            var cart1 = _fixture.Create<Cart>();
+            //var cart = _fixture.Create<Cart>();
+            //cart.Id = 1;
+            //cart.UserId=1;
+            //var cart1 = _fixture.Create<Cart>();
 
-            _dbContext.Carts.Add(cart1);
-            _dbContext.Carts.Add(cart);
+            //_dbContext.Carts.Add(cart1);
+            //_dbContext.Carts.Add(cart);
             _dbContext.SaveChanges();
 
             //Act
-            var actual = _cartRepo.GetCart(cart.UserId);
+            var actual = _cartRepo.GetCart(userId, true);
 
             //Assert
-            Assert.Equal(cart, actual);
+            userId.Should().Be(actual.UserId);
+
             actual.CartItems.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [Theory]
         [Trait("Repositories", "Cart")]
-        public void when_GetCart_with_userId_arg_and_no_cart_exist_should_create_cart_with_no_item()
+        [InlineData(100)]
+        public void when_GetCart_with_userId_arg_and_no_cart_exist_should_create_cart_with_no_item(int userId)
         {
 
             //Arrange
-            var cart = _fixture.Create<Cart>();
-            cart.Id = 1;
-            cart.UserId = 1;
 
-            _dbContext.Carts.Add(cart);
-            _dbContext.SaveChanges();
 
             //Verify
-            var anyCart=_dbContext.Carts.Any(x => x.Id == 2);
+            var anyCart=_dbContext.Carts.Any(x => x.UserId==userId);
 
             Assert.False(anyCart);
 
             //Act
-            var act =_cartRepo.GetCart(2,true);
+            var act =_cartRepo.GetCart(userId,true);
 
             //Assert
             act.Should().NotBeNull();
@@ -119,87 +117,52 @@ namespace SugarShark.Infrastructure.Tests.CartModule
         }
 
 
-        [Fact]
+        [Theory]
         [Trait("Repositories", "Cart")]
-        public void when_DeleteCartItem_and_cartItem_exist_should_return_1()
+        [InlineData(12,4)]
+        public void when_DeleteCartItem_and_cartItem_exist_should_return_1(int productId, int cartId)
         {
             //Arrange
-            var item1 = _fixture.Create<CartItem>();
-            item1.ProductId = 3;
-            item1.Id = 3;
-            var item2 = _fixture.Create<CartItem>();
-            item2.Id = 4;
-            item2.ProductId = 4;
-            var cart = new Cart() { CartItems = new List<CartItem> { item1, item2 } };
-            cart.Id = 1;
-            cart.UserId = 1;
-            var item = _fixture.Create<CartItem>();
-            item.CartId = cart.Id;
-            item.ProductId = 2;
-
-            _dbContext.Carts.Add(cart);
-            _dbContext.CartItems.Add(item);
-            _dbContext.SaveChanges();
+            //All data needed here are in the startup seed data
             
             //Act
-            int actual=_cartRepo.DeleteCartItem(item.ProductId,cart.UserId);
+            int actual=_cartRepo.DeleteCartItem(productId, cartId);
             _cartRepo.Commit();
 
-            var check = _dbContext.CartItems.FirstOrDefault(x => x.Id == item.Id);
+            var check = _cartRepo.GetCartItemByProductIdCartId(productId, cartId);
             
             //Assert
             actual.Should().Be(1);
             check.Should().BeNull();
         }
 
-        [Fact]
+        [Theory]
         [Trait("Repositories", "Cart")]
-        public void when_DeleteCartItem_and_no_cartItem_exist_should_throws_invalidOperationException()
+        [InlineData(1,1)]
+        public void when_DeleteCartItem_and_no_cartItem_exist_should_throws_invalidOperationException(int productId, int cartId)
         {
             //Arrange
-            var item1 = _fixture.Create<CartItem>();
-            item1.Id = 3;
-            var item2 = _fixture.Create<CartItem>();
-            item2.Id = 4;
-            var cart = new Cart() { CartItems=new List<CartItem> { item1,item2} };
-            cart.Id = 1;
-            cart.UserId = 1;
-            var item = _fixture.Create<CartItem>();
-            item.Id = 1;
-            item.CartId = cart.Id;
-
-            _dbContext.Carts.Add(cart);
-            _dbContext.CartItems.Add(item);
-            _dbContext.SaveChanges();
 
             //Act
-            var act =()=> _cartRepo.DeleteCartItem(2,1);
+            var act =()=> _cartRepo.DeleteCartItem(productId,cartId);
 
             //Assert
             act.Should().Throw<InvalidOperationException>().Which.Message.Should().Be("Ce produit n'existe pas");
         }
 
-        [Fact]
+        [Theory]
         [Trait("Repositories", "Cart")]
-        public void when_UpdateCartItemQty_and_cartItem_exist_should_return_1()
+        [InlineData(12,4,15)]
+        public void when_UpdateCartItemQty_and_cartItem_exist_should_return_1(int productId,int cartId,int qty)
         {
             //Arrange
-            var cart = _fixture.Create<Cart>();
-            cart.Id = 1;
-            cart.UserId = 1;
-            var item = _fixture.Create<CartItem>();
-            item.CartId = cart.Id;
-            item.Quantity = 10;
-
-            _dbContext.Carts.Add(cart);
-            _dbContext.CartItems.Add(item);
-            _dbContext.SaveChanges();
 
             //Act
-            int actual = _cartRepo.UpdateCartItemQty(item.ProductId, cart.Id,item.Quantity+5);
+            int actual = _cartRepo.UpdateCartItemQty(productId, cartId,qty);
             _cartRepo.Commit();
 
-            var updated = _dbContext.CartItems.First(x => x.Id == item.Id);
+            var updated = _cartRepo.GetCartItemByProductIdCartId(productId, cartId);
+
             //Assert
             actual.Should().Be(1);
             updated.Quantity.Should().Be(15);

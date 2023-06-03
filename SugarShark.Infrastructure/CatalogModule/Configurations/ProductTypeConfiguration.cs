@@ -16,7 +16,7 @@ namespace SugarShark.Infrastructure.CatalogModule.Configurations
             builder.HasKey(x => x.Id);
             builder
                 .HasOne(x => x.ProductType)
-                .WithMany(c=>c.Products)
+                .WithMany()
                 .HasForeignKey(x => x.ProductTypeId);
 
             SeedData(builder);
