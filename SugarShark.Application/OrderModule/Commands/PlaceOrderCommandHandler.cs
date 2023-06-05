@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using SugarShark.Application.OrderModule.Dtos;
 using SugarShark.Application.OrderModule.Services;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,10 @@ namespace SugarShark.Application.OrderModule.Commands
         public async Task<int> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Debut PlaceOrder handler");
-            int saved = await _orderService.PlaceOrder(request.Order);
+
+            var order=new OrderDto() { UserId=request.UserId, OrderDate=DateTime.Now,OrderStatus=(int)OrderStatus.OrderCreated };
+            int saved = await _orderService.PlaceOrder(order);
+
             _logger.LogInformation("Fin PlaceOrder handler");
 
             return saved;

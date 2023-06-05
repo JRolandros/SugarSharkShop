@@ -10,10 +10,12 @@ namespace SugarShark.Application.OrderModule.Commands
         {
             
         }
-        public PlaceOrderCommand(OrderDto orderDto)
+        public PlaceOrderCommand(int userId)
         {
-            Order = orderDto;
+            UserId = userId;
         }
-        public OrderDto Order { get; set; }
+        public int UserId { get; set; }
+
+        //TODO : Add payment and shipping information here
     }
 }

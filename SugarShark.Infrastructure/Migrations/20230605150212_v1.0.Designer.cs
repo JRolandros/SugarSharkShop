@@ -12,8 +12,8 @@ using SugarShark.Infrastructure;
 namespace SugarShark.Infrastructure.Migrations
 {
     [DbContext(typeof(SugarSharkDbContext))]
-    [Migration("20230602182924_v1.3")]
-    partial class v13
+    [Migration("20230605150212_v1.0")]
+    partial class v10
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,13 +76,13 @@ namespace SugarShark.Infrastructure.Migrations
                         {
                             Id = 2,
                             UserId = 2,
-                            ValidityEndDate = new DateTime(2023, 6, 4, 14, 29, 24, 411, DateTimeKind.Local).AddTicks(7817)
+                            ValidityEndDate = new DateTime(2023, 6, 7, 11, 2, 11, 936, DateTimeKind.Local).AddTicks(9468)
                         },
                         new
                         {
                             Id = 4,
                             UserId = 1,
-                            ValidityEndDate = new DateTime(2023, 6, 4, 14, 29, 24, 411, DateTimeKind.Local).AddTicks(7860)
+                            ValidityEndDate = new DateTime(2023, 6, 7, 11, 2, 11, 936, DateTimeKind.Local).AddTicks(9512)
                         });
                 });
 
@@ -151,9 +151,6 @@ namespace SugarShark.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DeliveryAddressId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
@@ -164,8 +161,6 @@ namespace SugarShark.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DeliveryAddressId");
 
                     b.ToTable("Orders");
                 });
@@ -311,21 +306,10 @@ namespace SugarShark.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SugarShark.Domain.Entities.Order", b =>
-                {
-                    b.HasOne("SugarShark.Domain.Entities.Address", "DeliveryAddress")
-                        .WithMany()
-                        .HasForeignKey("DeliveryAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DeliveryAddress");
-                });
-
             modelBuilder.Entity("SugarShark.Domain.Entities.Product", b =>
                 {
                     b.HasOne("SugarShark.Domain.Entities.ProductType", "ProductType")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -336,11 +320,6 @@ namespace SugarShark.Infrastructure.Migrations
             modelBuilder.Entity("SugarShark.Domain.Entities.Cart", b =>
                 {
                     b.Navigation("CartItems");
-                });
-
-            modelBuilder.Entity("SugarShark.Domain.Entities.ProductType", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

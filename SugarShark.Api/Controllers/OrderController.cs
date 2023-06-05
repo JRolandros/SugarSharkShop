@@ -29,7 +29,7 @@ namespace SugarShark.Api.Controllers
             {
                 _logger.LogInformation("Debut PlaceOrder endpoint");
                 int ok = await _mediator.Send(command);
-                response.IsOrderValid = ok == 1 ? true : false;
+                response.IsOrderValid = ok >= 1 ? true : false;
             }
             catch (Exception ex)
             {

@@ -73,13 +73,13 @@ namespace SugarShark.Infrastructure.Migrations
                         {
                             Id = 2,
                             UserId = 2,
-                            ValidityEndDate = new DateTime(2023, 6, 5, 0, 41, 43, 772, DateTimeKind.Local).AddTicks(86)
+                            ValidityEndDate = new DateTime(2023, 6, 7, 11, 2, 11, 936, DateTimeKind.Local).AddTicks(9468)
                         },
                         new
                         {
                             Id = 4,
                             UserId = 1,
-                            ValidityEndDate = new DateTime(2023, 6, 5, 0, 41, 43, 772, DateTimeKind.Local).AddTicks(145)
+                            ValidityEndDate = new DateTime(2023, 6, 7, 11, 2, 11, 936, DateTimeKind.Local).AddTicks(9512)
                         });
                 });
 
@@ -148,9 +148,6 @@ namespace SugarShark.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DeliveryAddressId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
@@ -161,8 +158,6 @@ namespace SugarShark.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DeliveryAddressId");
 
                     b.ToTable("Orders");
                 });
@@ -306,17 +301,6 @@ namespace SugarShark.Infrastructure.Migrations
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("SugarShark.Domain.Entities.Order", b =>
-                {
-                    b.HasOne("SugarShark.Domain.Entities.Address", "DeliveryAddress")
-                        .WithMany()
-                        .HasForeignKey("DeliveryAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DeliveryAddress");
                 });
 
             modelBuilder.Entity("SugarShark.Domain.Entities.Product", b =>

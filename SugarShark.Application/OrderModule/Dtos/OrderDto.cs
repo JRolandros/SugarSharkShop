@@ -10,10 +10,15 @@ namespace SugarShark.Application.OrderModule.Dtos
 {
     public class OrderDto :BaseDto
     {
+        /// <summary>
+        /// With userId we can retrieve the user cart and collect all products he want to order.
+        /// </summary>
         public int UserId { get; set; }
         public DateTime OrderDate { get; set; }
         public int OrderStatus { get; set; }
-        public Address DeliveryAddress { get; set; }
+        //public Address ? DeliveryAddress { get; set; }
+
+        //TODO : Add payment and shipping info here.
     }
 
     public enum OrderStatus
