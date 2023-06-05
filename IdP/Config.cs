@@ -24,7 +24,7 @@ public static class Config
                 ClientId="SugarSharkshop",
                 AllowedGrantTypes=new List<string>{GrantType.ClientCredentials },
                 ClientSecrets={ new Secret("sugarsharc".Sha256()) },
-                AllowedScopes={ "SugarSharkApi" },
+                AllowedScopes={ "SugarSharkApi" }, 
                 AllowAccessTokensViaBrowser=true,
             }
         };
