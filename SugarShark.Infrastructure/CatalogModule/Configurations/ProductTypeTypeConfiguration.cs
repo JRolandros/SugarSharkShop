@@ -14,6 +14,17 @@ namespace SugarShark.Infrastructure.CatalogModule.Configurations
         public void Configure(EntityTypeBuilder<ProductType> builder)
         {
             builder.HasKey(x => x.Id);
+
+            SeedData(builder);
+        }
+
+        private void SeedData(EntityTypeBuilder<ProductType> builder)
+        {
+            builder.HasData(
+                new ProductType { Id = 1, Name = "AMBER" },
+                new ProductType { Id = 2, Name = "DARK" },
+                 new ProductType { Id = 3, Name = "CLEAR" }
+                );
         }
     }
 }

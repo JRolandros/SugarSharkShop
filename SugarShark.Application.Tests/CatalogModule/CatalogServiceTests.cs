@@ -19,7 +19,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SugarShark.Application.Tests.CatalogModule
 {
-    public class CatalogServiceTest
+    public class CatalogServiceTests
     {
         private readonly Fixture _fixture;
         private readonly FakeContainerManager _container;
@@ -27,7 +27,7 @@ namespace SugarShark.Application.Tests.CatalogModule
         private readonly IServiceProvider _provider;
         private readonly IMapper? _mapper;
 
-        public CatalogServiceTest()
+        public CatalogServiceTests()
         {
             _fixture = new Fixture();
             _container = new FakeContainerManager();
@@ -40,7 +40,7 @@ namespace SugarShark.Application.Tests.CatalogModule
         }
 
         [Fact]
-        [Trait("CatalogService","Application level")]
+        [Trait("ApplicationServices","Catalog")]
         public async void GetProducts_should_return_all_productDto()
         {
             //Arrange
@@ -50,17 +50,17 @@ namespace SugarShark.Application.Tests.CatalogModule
             var catalogService = new CatalogService(repoMock.Object, _mapper);
 
             //Act
-            var dtos = await catalogService.GetProducts();
+            var dtos = await catalogService.GetCatalogItems();
 
             //Assert
             dtos.Should().NotBeNull().And.NotBeEmpty();
-            Assert.IsType<ProductDto>(dtos.First());
+            Assert.IsType<CatalogItemDto>(dtos.First());
             Assert.Equal(products.Count(), dtos.Count());
 
         }
 
         [Fact]
-        [Trait("CatalogService", "Application level")]
+        [Trait("ApplicationServices", "Catalog")]
         public async void GetProducts_with_Type_argument_should_return_2_productDto_of_Type_Dark()
         {
             //Arrange
@@ -75,17 +75,17 @@ namespace SugarShark.Application.Tests.CatalogModule
             var catalogService = new CatalogService(repoMock.Object, _mapper);
 
             //Act
-            var dtos = await catalogService.GetProducts("Dark");
+            var dtos = await catalogService.GetCatalogItems("Dark");
 
             //Assert
             dtos.Should().NotBeNull().And.NotBeEmpty();
-            Assert.IsType<ProductDto>(dtos.First());
+            Assert.IsType<CatalogItemDto>(dtos.First());
             Assert.Equal(2, dtos.Count());
             Assert.True(dtos.Any(x => x.Type == "Dark"));
         }
 
         [Fact]
-        [Trait("CatalogService", "Application level")]
+        [Trait("ApplicationServices", "Catalog")]
         public async void GetProducts_with_2_arguments_should_return_1_productDto_of_Type_Dark_and_name_of_Juice()
         {
             //Arrange
@@ -101,18 +101,18 @@ namespace SugarShark.Application.Tests.CatalogModule
             var catalogService = new CatalogService(repoMock.Object, _mapper);
 
             //Act
-            var dtos = await catalogService.GetProducts("Dark", "Juice");
+            var dtos = await catalogService.GetCatalogItems("Dark", "Juice");
 
             //Assert
             dtos.Should().NotBeNull().And.NotBeEmpty();
-            Assert.IsType<ProductDto>(dtos.First());
+            Assert.IsType<CatalogItemDto>(dtos.First());
             Assert.Equal(1, dtos.Count());
             Assert.Equal("Dark", dtos.First().Type);
             Assert.Equal("Juice", dtos.First().Name);
         }
 
         [Fact]
-        [Trait("CatalogService", "Application level")]
+        [Trait("ApplicationServices", "Catalog")]
         public async void when_GetProduct_with_param_1_should_return_one_dto_whose_id_is_1()
         {
             //Arrange

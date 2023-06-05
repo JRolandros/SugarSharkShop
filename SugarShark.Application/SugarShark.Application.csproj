@@ -7,10 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CartModule\Commands\" />
-    <Folder Include="CartModule\Queries\" />
-    <Folder Include="OrderModule\Commands\" />
     <Folder Include="OrderModule\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>

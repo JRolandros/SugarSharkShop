@@ -10,8 +10,8 @@ namespace SugarShark.Application.CatalogModule.Services
     public interface ICatalogService
     {
         Task<ProductDto> GetProductById(int v);
-        Task<List<ProductDto>> GetProducts();
-        Task<List<ProductDto>> GetProducts(string type);
-        Task<List<ProductDto>> GetProducts(string type, string name);
+        Task<List<CatalogItemDto>> GetCatalogItems();
+        Task<List<CatalogItemDto>> GetCatalogItems(string type);
+        Task<List<CatalogItemDto>> GetCatalogItems(string type, string name);
     }
 }

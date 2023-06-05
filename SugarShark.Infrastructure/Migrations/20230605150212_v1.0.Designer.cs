@@ -12,8 +12,8 @@ using SugarShark.Infrastructure;
 namespace SugarShark.Infrastructure.Migrations
 {
     [DbContext(typeof(SugarSharkDbContext))]
-    [Migration("20230529164054_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230605150212_v1.0")]
+    partial class v10
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,7 +66,24 @@ namespace SugarShark.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.ToTable("Carts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            UserId = 2,
+                            ValidityEndDate = new DateTime(2023, 6, 7, 11, 2, 11, 936, DateTimeKind.Local).AddTicks(9468)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            UserId = 1,
+                            ValidityEndDate = new DateTime(2023, 6, 7, 11, 2, 11, 936, DateTimeKind.Local).AddTicks(9512)
+                        });
                 });
 
             modelBuilder.Entity("SugarShark.Domain.Entities.CartItem", b =>
@@ -83,14 +100,47 @@ namespace SugarShark.Infrastructure.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Qantity")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CartId");
 
+                    b.HasIndex("ProductId", "CartId")
+                        .IsUnique();
+
                     b.ToTable("CartItems");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CartId = 2,
+                            ProductId = 11,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CartId = 2,
+                            ProductId = 12,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CartId = 2,
+                            ProductId = 13,
+                            Quantity = 10
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CartId = 4,
+                            ProductId = 12,
+                            Quantity = 5
+                        });
                 });
 
             modelBuilder.Entity("SugarShark.Domain.Entities.Order", b =>
@@ -100,12 +150,6 @@ namespace SugarShark.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DeliveryAddressId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
@@ -118,8 +162,6 @@ namespace SugarShark.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliveryAddressId");
-
                     b.ToTable("Orders");
                 });
 
@@ -130,6 +172,10 @@ namespace SugarShark.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -145,11 +191,76 @@ namespace SugarShark.Infrastructure.Migrations
                     b.Property<int>("ProductTypeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductTypeId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 11,
+                            Description = " Baby shark sugar cookies",
+                            Image = "cookies-image-base64",
+                            Name = "Cookies",
+                            Price = 30.0,
+                            ProductTypeId = 1,
+                            Stock = 20
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = " Baby shark sugar Cakesicles",
+                            Image = "Cakesicles-image-base64",
+                            Name = "Cakesicles",
+                            Price = 30.0,
+                            ProductTypeId = 1,
+                            Stock = 20
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Description = " Baby shark sugar cookies",
+                            Image = "cookies-image-base64",
+                            Name = "Cookies",
+                            Price = 50.0,
+                            ProductTypeId = 2,
+                            Stock = 10
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Description = " Baby shark sugar cookies",
+                            Image = "cookies-image-base64",
+                            Name = "Cookies",
+                            Price = 5.0,
+                            ProductTypeId = 3,
+                            Stock = 2
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Description = " shark sugar Cupcake",
+                            Image = "Cupcake-image-base64",
+                            Name = "Cupcake",
+                            Price = 40.0,
+                            ProductTypeId = 3,
+                            Stock = 60
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Description = " Baby shark sugar Sprinkles",
+                            Image = "Sprinkles-image-base64",
+                            Name = "Sprinkles",
+                            Price = 10.0,
+                            ProductTypeId = 3,
+                            Stock = 200
+                        });
                 });
 
             modelBuilder.Entity("SugarShark.Domain.Entities.ProductType", b =>
@@ -167,6 +278,23 @@ namespace SugarShark.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "AMBER"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "DARK"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "CLEAR"
+                        });
                 });
 
             modelBuilder.Entity("SugarShark.Domain.Entities.CartItem", b =>
@@ -176,17 +304,6 @@ namespace SugarShark.Infrastructure.Migrations
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("SugarShark.Domain.Entities.Order", b =>
-                {
-                    b.HasOne("SugarShark.Domain.Entities.Address", "DeliveryAddress")
-                        .WithMany()
-                        .HasForeignKey("DeliveryAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DeliveryAddress");
                 });
 
             modelBuilder.Entity("SugarShark.Domain.Entities.Product", b =>

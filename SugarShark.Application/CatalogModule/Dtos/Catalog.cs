@@ -8,6 +8,6 @@ namespace SugarShark.Application.CatalogModule.Dtos
 {
     public class Catalog
     {
-        public List<ProductDto> Products { get; set; }
+        public List<CatalogItemDto> CatalogItems { get; set; }
     }
 }

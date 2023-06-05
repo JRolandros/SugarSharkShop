@@ -23,31 +23,35 @@ namespace SugarShark.Application.CatalogModule.Services
         public Task<ProductDto> GetProductById(int id)
         {
             var product= _productRepository.GetProductById(id);
+
             var dto=product==null?null:_mapper.Map<ProductDto>(product);
 
             return Task.FromResult(dto);
         }
 
-        public Task<List<ProductDto>> GetProducts()
+        public Task<List<CatalogItemDto>> GetCatalogItems()
         {
             var products = _productRepository.GetProducts().ToList();
-            var productDtos=_mapper.Map<List<ProductDto>>(products);
+
+            var productDtos=_mapper.Map<List<CatalogItemDto>>(products);
 
             return Task.FromResult(productDtos);
         }
-        public Task<List<ProductDto>> GetProducts(string type)
+        public Task<List<CatalogItemDto>> GetCatalogItems(string type)
         {
             var allProducts= _productRepository.GetProducts();
             var filteredProducts=allProducts.Where(x=>x.ProductType.Name.Equals(type)).ToList();
-            var productDtos = _mapper.Map<List<ProductDto>>(filteredProducts);
+
+            var productDtos = _mapper.Map<List<CatalogItemDto>>(filteredProducts);
 
             return Task.FromResult(productDtos);
         }
-        public Task<List<ProductDto>> GetProducts(string type,string name)
+        public Task<List<CatalogItemDto>> GetCatalogItems(string type,string name)
         {
             var allProducts = _productRepository.GetProducts();
             var filteredProducts = allProducts.Where(x => x.ProductType.Name.Equals(type) && x.Name.Equals(name)).ToList();
-            var productDtos = _mapper.Map<List<ProductDto>>(filteredProducts);
+
+            var productDtos = _mapper.Map<List<CatalogItemDto>>(filteredProducts);
 
             return Task.FromResult(productDtos);
         }

@@ -1,9 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SugarShark.Application.CartModule.Repositories;
 using SugarShark.Application.CatalogModule.Repositories;
 using SugarShark.Application.Common;
+using SugarShark.Application.OrderModule.Repositories;
+using SugarShark.Infrastructure.CartModule.Repertories;
 using SugarShark.Infrastructure.CatalogModule.Repositories;
+using SugarShark.Infrastructure.OrderModule.Repertories;
 
 namespace SugarShark.Infrastructure
 {
@@ -18,8 +23,11 @@ namespace SugarShark.Infrastructure
             services.AddScoped<ISugarSharkDbContext>(provider => provider.GetRequiredService<SugarSharkDbContext>());
 
             services.AddScoped<IProductRepository,ProductRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             return services;
         }
+
     }
 }
