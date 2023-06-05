@@ -15,6 +15,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CF3D7406-E87C-4586-96E4-36B0E83C3D2A}"
 	ProjectSection(SolutionItems) = preProject
 		Solution Items\docs\CustomerSugarSharkShoppingUseCase.png = Solution Items\docs\CustomerSugarSharkShoppingUseCase.png
+		Solution Items\docs\Maplr Sugar Shark.postman_collection.json = Solution Items\docs\Maplr Sugar Shark.postman_collection.json
 		Solution Items\docs\SugarSharkApplicationArchitecture.png = Solution Items\docs\SugarSharkApplicationArchitecture.png
 		Solution Items\docs\SugarSharkDatabaseDiagram.png = Solution Items\docs\SugarSharkDatabaseDiagram.png
 	EndProjectSection
@@ -31,7 +32,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SugarShark.Application.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SugarShark.Infrastructure.Tests", "SugarShark.Infrastructure.Tests\SugarShark.Infrastructure.Tests.csproj", "{06B6652E-E4D5-4862-87FE-E641DB522E40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdP", "IdP\IdP.csproj", "{554AA64D-A2BC-4768-8E72-E7F89AB6F1FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdP", "IdP\IdP.csproj", "{554AA64D-A2BC-4768-8E72-E7F89AB6F1FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
