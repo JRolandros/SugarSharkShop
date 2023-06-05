@@ -34,4 +34,8 @@
     <ProjectReference Include="..\SugarShark.Infrastructure\SugarShark.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commons\" />
+  </ItemGroup>
+
 </Project>

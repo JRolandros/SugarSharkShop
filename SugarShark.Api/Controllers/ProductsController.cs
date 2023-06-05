@@ -21,9 +21,9 @@ namespace SugarShark.Api.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetCatalog()
+        public async Task<IActionResult> GetCatalog(string type="", string name="")
         {
-            var resp = await _mediator.Send(new GetCatalogQuery());
+            var resp = await _mediator.Send(new GetCatalogQuery() { Type=type,Name=name});
 
             return Ok(resp.CatalogItems);
         }

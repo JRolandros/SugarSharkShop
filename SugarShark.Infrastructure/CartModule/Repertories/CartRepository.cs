@@ -94,6 +94,7 @@ namespace SugarShark.Infrastructure.CartModule.Repertories
 
         public Cart GetCart(int userId,bool includeItems=false)
         {
+            throw new Exception("testing error here");
             try
             {
                 var cart =includeItems? getCartWithItems(userId) : getCart(userId);

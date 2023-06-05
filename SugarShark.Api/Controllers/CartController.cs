@@ -20,29 +20,19 @@ namespace SugarShark.Api.Controllers
             _mediator = mediator;
         }
 
-        
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            try
-            {
-                _logger.LogInformation("Debut GetCart endpoint");
+            _logger.LogInformation("Debut GetCart endpoint");
 
-                var cart = await _mediator.Send(new GetCartQuery() { UserId = 1 });
+            var cart = await _mediator.Send(new GetCartQuery() { UserId = 1 });
 
-                _logger.LogInformation("Fin GetCart endpoint");
+            _logger.LogInformation("Fin GetCart endpoint");
 
-                return Ok(cart.CartItemDtos);
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
-            
+            return Ok(cart.CartItemDtos);
         }
-      
+
 
         [HttpPut]
         public async Task<IActionResult> AddCartItem(int productId)
@@ -57,11 +47,11 @@ namespace SugarShark.Api.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> ChangeCartItemQty(int productId,int newQty)
+        public async Task<IActionResult> ChangeCartItemQty(int productId, int newQty)
         {
             _logger.LogInformation("Debut ChangeCartItemQty endpoint");
 
-            var ok = await _mediator.Send(new ChangeCartItemQtyCommand() { ProductId = productId, UserId = 1, Qty=newQty });
+            var ok = await _mediator.Send(new ChangeCartItemQtyCommand() { ProductId = productId, UserId = 1, Qty = newQty });
 
             _logger.LogInformation("Fin ChangeCartItemQty endpoint");
 
@@ -79,6 +69,7 @@ namespace SugarShark.Api.Controllers
             _logger.LogInformation("Fin RemoveFromCart endpoint");
 
             return Ok(ok);
+
         }
     }
 }
